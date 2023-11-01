@@ -1,23 +1,36 @@
+
+import java.awt.Color;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author ´Felipe Chacón
  */
 public class Casilla {
+
     private int posFila;
     private int posColumna;
     private boolean mina;
     private int numMinasAlrededor;
+    private boolean abierta;
+    private Color color;
 
     public Casilla(int posFila, int posColumna) {
         this.posFila = posFila;
         this.posColumna = posColumna;
     }
-    
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     public int getPosFila() {
         return posFila;
     }
@@ -49,8 +62,16 @@ public class Casilla {
     public void setNumMinasAlrededor(int numMinasAlrededor) {
         this.numMinasAlrededor = numMinasAlrededor;
     }
-    
-    public void incrementarNumeroMinasAlrededor(){
+
+    public void incrementarNumeroMinasAlrededor() {
         this.numMinasAlrededor++;
+    }
+
+    public boolean isAbierta() {
+        return abierta;
+    }
+
+    public void setAbierta(boolean abierta) {
+        this.abierta = abierta;
     }
 }
