@@ -45,13 +45,15 @@ public class Tablero {
                 minasGeneradas++;
             }
         }
+        actualizarNumeroMinasAlrededor();
     }
     
     private void actualizarNumeroMinasAlrededor(){
         for (int i = 0; i < casillas.length; i++){
             for (int j = 0; j < casillas[i].length; j++){
                 if (casillas[i][j].isMina()){
-                    
+                    List<Casilla> casillasAlrededor=obtenerCasillasAlrededor(i, j);
+                    casillasAlrededor.forEach((c)->c.incrementarNumeroMinasAlrededor());
                 }
             }
         }
@@ -63,14 +65,34 @@ public class Tablero {
             int tmpPosFila = posFila;
             int tmpPosColumna = posColumna;
             switch(i){
-                case 0: tmpPosFila--;break; //Arriba
-                case 1: tmpPosFila--;tmpPosColumna++;break; //Arriba Derecha
-                case 2: tmpPosColumna++;break; //Derecha
-                case 3: tmpPosColumna++;tmpPosFila++;break; // Derecha Abajo
-                case 4: tmpPosFila++;break; // Abajo
-                case 5: tmpPosFila++;tmpPosColumna--;break; // Abajo Izquierda
-                case 6: tmpPosColumna--;break; // Izquierda
-                case 7: tmpPosFila--;tmpPosColumna--;break; // Izquierda Arriba
+                case 0 -> tmpPosFila--;
+                //Arriba
+                case 1 -> {
+                    tmpPosFila--;
+                    tmpPosColumna++;
+                    //Arriba Derecha
+                }
+                case 2 -> tmpPosColumna++;
+                //Derecha
+                case 3 -> {
+                    tmpPosColumna++;
+                    tmpPosFila++;
+                    // Derecha Abajo
+                }
+                case 4 -> tmpPosFila++;
+                // Abajo
+                case 5 -> {
+                    tmpPosFila++;
+                    tmpPosColumna--;
+                    // Abajo Izquierda
+                }
+                case 6 -> tmpPosColumna--;
+                // Izquierda
+                case 7 -> {
+                    tmpPosFila--;
+                    tmpPosColumna--;
+                    // Izquierda Arriba
+                }
             }
             
             if(tmpPosFila>=0 && tmpPosFila<this.casillas.length
