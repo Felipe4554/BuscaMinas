@@ -19,6 +19,11 @@ import javax.swing.JButton;
  */
 public class FrmJuego extends javax.swing.JFrame {
 
+    private javax.swing.Timer temporizador;
+
+    private boolean juegoIniciado = false;
+    private int tiempoTranscurrido = 0;
+
     int numFilas = 12;
     int numColumnas = 12;
     int numMinas = 30;
@@ -32,6 +37,7 @@ public class FrmJuego extends javax.swing.JFrame {
     public FrmJuego() {
         initComponents();
         juegoNuevo();
+        tiem.setText("0");
     }
 
     void descargarControles() {
@@ -258,7 +264,7 @@ public class FrmJuego extends javax.swing.JFrame {
                         if (e.getButton() == MouseEvent.BUTTON3) {
                             JButton btn = (JButton) e.getSource();
                             if (clicked) {
-                                btn.setBackground(Color.GREEN); // Si ya se ha hecho clic, cambia a verde
+                                btn.setBackground(new Color(102, 204, 0));  // Si ya se ha hecho clic, cambia a verde
                                 clicked = false; // Restablece el estado de clic
                             } else {
                                 btn.setBackground(Color.RED);
@@ -282,6 +288,10 @@ public class FrmJuego extends javax.swing.JFrame {
     }
 
     private void btnClick(ActionEvent e) {
+        if (!juegoIniciado) {
+            juegoIniciado = true; // Marcar el juego como iniciado
+            iniciarTemporizador();
+        }
         JButton btn = (JButton) e.getSource();
         String[] coordenada = btn.getName().split(",");
         int posFila = Integer.parseInt(coordenada[0]);
@@ -289,6 +299,24 @@ public class FrmJuego extends javax.swing.JFrame {
         //JOptionPane.showMessageDialog(rootPane, posFila+","+posColumna);
         tableroBuscaminas.seleccionarCasilla(posFila, posColumna);
 
+    }
+
+    private void iniciarTemporizador() {
+        if (temporizador != null) {
+            temporizador.stop();
+        }
+        temporizador = new javax.swing.Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int minutos = tiempoTranscurrido / 60;
+                int segundos = tiempoTranscurrido % 60;
+
+                tiem.setText(minutos + "m " + segundos + "s");
+                tiempoTranscurrido++;
+            }
+        });
+        temporizador.setInitialDelay(0);
+        temporizador.start();
     }
 
     /**
@@ -446,8 +474,9 @@ public class FrmJuego extends javax.swing.JFrame {
         btn144 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         lblBandera = new javax.swing.JLabel();
-        lblTemporizador = new javax.swing.JLabel();
         btnReiniciar = new javax.swing.JButton();
+        tiem = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         Reiniciar = new javax.swing.JMenuItem();
@@ -455,299 +484,440 @@ public class FrmJuego extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btn00.setBackground(new java.awt.Color(102, 204, 0));
+        btn00.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn02.setBackground(new java.awt.Color(102, 204, 0));
+        btn02.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn03.setBackground(new java.awt.Color(102, 204, 0));
+        btn03.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn04.setBackground(new java.awt.Color(102, 204, 0));
+        btn04.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn05.setBackground(new java.awt.Color(102, 204, 0));
+        btn05.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn06.setBackground(new java.awt.Color(102, 204, 0));
+        btn06.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn07.setBackground(new java.awt.Color(102, 204, 0));
+        btn07.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn08.setBackground(new java.awt.Color(102, 204, 0));
+        btn08.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn09.setBackground(new java.awt.Color(102, 204, 0));
+        btn09.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn10.setBackground(new java.awt.Color(102, 204, 0));
+        btn10.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn11.setBackground(new java.awt.Color(102, 204, 0));
+        btn11.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn12.setBackground(new java.awt.Color(102, 204, 0));
+        btn12.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn13.setBackground(new java.awt.Color(102, 204, 0));
+        btn13.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn24.setBackground(new java.awt.Color(102, 204, 0));
+        btn24.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn14.setBackground(new java.awt.Color(102, 204, 0));
+        btn14.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn15.setBackground(new java.awt.Color(102, 204, 0));
+        btn15.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn16.setBackground(new java.awt.Color(102, 204, 0));
+        btn16.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn17.setBackground(new java.awt.Color(102, 204, 0));
+        btn17.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn18.setBackground(new java.awt.Color(102, 204, 0));
+        btn18.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn19.setBackground(new java.awt.Color(102, 204, 0));
+        btn19.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn20.setBackground(new java.awt.Color(102, 204, 0));
+        btn20.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn21.setBackground(new java.awt.Color(102, 204, 0));
+        btn21.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn22.setBackground(new java.awt.Color(102, 204, 0));
+        btn22.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn23.setBackground(new java.awt.Color(102, 204, 0));
+        btn23.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn25.setBackground(new java.awt.Color(102, 204, 0));
+        btn25.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn36.setBackground(new java.awt.Color(102, 204, 0));
+        btn36.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn26.setBackground(new java.awt.Color(102, 204, 0));
+        btn26.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn27.setBackground(new java.awt.Color(102, 204, 0));
+        btn27.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn28.setBackground(new java.awt.Color(102, 204, 0));
+        btn28.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn29.setBackground(new java.awt.Color(102, 204, 0));
+        btn29.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn30.setBackground(new java.awt.Color(102, 204, 0));
+        btn30.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn31.setBackground(new java.awt.Color(102, 204, 0));
+        btn31.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn32.setBackground(new java.awt.Color(102, 204, 0));
+        btn32.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn33.setBackground(new java.awt.Color(102, 204, 0));
+        btn33.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn34.setBackground(new java.awt.Color(102, 204, 0));
+        btn34.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn35.setBackground(new java.awt.Color(102, 204, 0));
+        btn35.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn37.setBackground(new java.awt.Color(102, 204, 0));
+        btn37.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn48.setBackground(new java.awt.Color(102, 204, 0));
+        btn48.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn38.setBackground(new java.awt.Color(102, 204, 0));
+        btn38.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn39.setBackground(new java.awt.Color(102, 204, 0));
+        btn39.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn40.setBackground(new java.awt.Color(102, 204, 0));
+        btn40.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn41.setBackground(new java.awt.Color(102, 204, 0));
+        btn41.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn42.setBackground(new java.awt.Color(102, 204, 0));
+        btn42.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn43.setBackground(new java.awt.Color(102, 204, 0));
+        btn43.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn44.setBackground(new java.awt.Color(102, 204, 0));
+        btn44.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn45.setBackground(new java.awt.Color(102, 204, 0));
+        btn45.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn46.setBackground(new java.awt.Color(102, 204, 0));
+        btn46.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn47.setBackground(new java.awt.Color(102, 204, 0));
+        btn47.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn60.setBackground(new java.awt.Color(102, 204, 0));
+        btn60.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn81.setBackground(new java.awt.Color(102, 204, 0));
+        btn81.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn61.setBackground(new java.awt.Color(102, 204, 0));
+        btn61.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn82.setBackground(new java.awt.Color(102, 204, 0));
+        btn82.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn72.setBackground(new java.awt.Color(102, 204, 0));
+        btn72.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn83.setBackground(new java.awt.Color(102, 204, 0));
+        btn83.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn62.setBackground(new java.awt.Color(102, 204, 0));
+        btn62.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn85.setBackground(new java.awt.Color(102, 204, 0));
+        btn85.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn63.setBackground(new java.awt.Color(102, 204, 0));
+        btn63.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn64.setBackground(new java.awt.Color(102, 204, 0));
+        btn64.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn96.setBackground(new java.awt.Color(102, 204, 0));
+        btn96.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn86.setBackground(new java.awt.Color(102, 204, 0));
+        btn86.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn65.setBackground(new java.awt.Color(102, 204, 0));
+        btn65.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn87.setBackground(new java.awt.Color(102, 204, 0));
+        btn87.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn66.setBackground(new java.awt.Color(102, 204, 0));
+        btn66.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn88.setBackground(new java.awt.Color(102, 204, 0));
+        btn88.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn67.setBackground(new java.awt.Color(102, 204, 0));
+        btn67.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn89.setBackground(new java.awt.Color(102, 204, 0));
+        btn89.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn68.setBackground(new java.awt.Color(102, 204, 0));
+        btn68.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn90.setBackground(new java.awt.Color(102, 204, 0));
+        btn90.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn69.setBackground(new java.awt.Color(102, 204, 0));
+        btn69.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn91.setBackground(new java.awt.Color(102, 204, 0));
+        btn91.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn49.setBackground(new java.awt.Color(102, 204, 0));
+        btn49.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn70.setBackground(new java.awt.Color(102, 204, 0));
+        btn70.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn92.setBackground(new java.awt.Color(102, 204, 0));
+        btn92.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn50.setBackground(new java.awt.Color(102, 204, 0));
+        btn50.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn71.setBackground(new java.awt.Color(102, 204, 0));
+        btn71.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn93.setBackground(new java.awt.Color(102, 204, 0));
+        btn93.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn51.setBackground(new java.awt.Color(102, 204, 0));
+        btn51.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn73.setBackground(new java.awt.Color(102, 204, 0));
+        btn73.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn94.setBackground(new java.awt.Color(102, 204, 0));
+        btn94.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn52.setBackground(new java.awt.Color(102, 204, 0));
+        btn52.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn84.setBackground(new java.awt.Color(102, 204, 0));
+        btn84.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn53.setBackground(new java.awt.Color(102, 204, 0));
+        btn53.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn74.setBackground(new java.awt.Color(102, 204, 0));
+        btn74.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn54.setBackground(new java.awt.Color(102, 204, 0));
+        btn54.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn55.setBackground(new java.awt.Color(102, 204, 0));
+        btn55.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn95.setBackground(new java.awt.Color(102, 204, 0));
+        btn95.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn75.setBackground(new java.awt.Color(102, 204, 0));
+        btn75.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn76.setBackground(new java.awt.Color(102, 204, 0));
+        btn76.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn56.setBackground(new java.awt.Color(102, 204, 0));
+        btn56.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn77.setBackground(new java.awt.Color(102, 204, 0));
+        btn77.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn57.setBackground(new java.awt.Color(102, 204, 0));
+        btn57.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn78.setBackground(new java.awt.Color(102, 204, 0));
+        btn78.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn58.setBackground(new java.awt.Color(102, 204, 0));
+        btn58.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn79.setBackground(new java.awt.Color(102, 204, 0));
+        btn79.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn59.setBackground(new java.awt.Color(102, 204, 0));
+        btn59.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn80.setBackground(new java.awt.Color(102, 204, 0));
+        btn80.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn108.setBackground(new java.awt.Color(102, 204, 0));
+        btn108.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn129.setBackground(new java.awt.Color(102, 204, 0));
+        btn129.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn109.setBackground(new java.awt.Color(102, 204, 0));
+        btn109.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn130.setBackground(new java.awt.Color(102, 204, 0));
+        btn130.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn120.setBackground(new java.awt.Color(102, 204, 0));
+        btn120.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn131.setBackground(new java.awt.Color(102, 204, 0));
+        btn131.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn110.setBackground(new java.awt.Color(102, 204, 0));
+        btn110.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn133.setBackground(new java.awt.Color(102, 204, 0));
+        btn133.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn111.setBackground(new java.awt.Color(102, 204, 0));
+        btn111.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn112.setBackground(new java.awt.Color(102, 204, 0));
+        btn112.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn134.setBackground(new java.awt.Color(102, 204, 0));
+        btn134.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn113.setBackground(new java.awt.Color(102, 204, 0));
+        btn113.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn135.setBackground(new java.awt.Color(102, 204, 0));
+        btn135.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn114.setBackground(new java.awt.Color(102, 204, 0));
+        btn114.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn136.setBackground(new java.awt.Color(102, 204, 0));
+        btn136.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn115.setBackground(new java.awt.Color(102, 204, 0));
+        btn115.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn137.setBackground(new java.awt.Color(102, 204, 0));
+        btn137.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn116.setBackground(new java.awt.Color(102, 204, 0));
+        btn116.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn138.setBackground(new java.awt.Color(102, 204, 0));
+        btn138.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn117.setBackground(new java.awt.Color(102, 204, 0));
+        btn117.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn139.setBackground(new java.awt.Color(102, 204, 0));
+        btn139.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn97.setBackground(new java.awt.Color(102, 204, 0));
+        btn97.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn118.setBackground(new java.awt.Color(102, 204, 0));
+        btn118.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn140.setBackground(new java.awt.Color(102, 204, 0));
+        btn140.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn98.setBackground(new java.awt.Color(102, 204, 0));
+        btn98.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn119.setBackground(new java.awt.Color(102, 204, 0));
+        btn119.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn141.setBackground(new java.awt.Color(102, 204, 0));
+        btn141.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn99.setBackground(new java.awt.Color(102, 204, 0));
+        btn99.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn121.setBackground(new java.awt.Color(102, 204, 0));
+        btn121.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn142.setBackground(new java.awt.Color(102, 204, 0));
+        btn142.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn100.setBackground(new java.awt.Color(102, 204, 0));
+        btn100.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn132.setBackground(new java.awt.Color(102, 204, 0));
+        btn132.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn101.setBackground(new java.awt.Color(102, 204, 0));
+        btn101.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn122.setBackground(new java.awt.Color(102, 204, 0));
+        btn122.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn102.setBackground(new java.awt.Color(102, 204, 0));
+        btn102.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn103.setBackground(new java.awt.Color(102, 204, 0));
+        btn103.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn143.setBackground(new java.awt.Color(102, 204, 0));
+        btn143.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn123.setBackground(new java.awt.Color(102, 204, 0));
+        btn123.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn124.setBackground(new java.awt.Color(102, 204, 0));
+        btn124.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn104.setBackground(new java.awt.Color(102, 204, 0));
+        btn104.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn125.setBackground(new java.awt.Color(102, 204, 0));
+        btn125.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn105.setBackground(new java.awt.Color(102, 204, 0));
+        btn105.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn126.setBackground(new java.awt.Color(102, 204, 0));
+        btn126.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn106.setBackground(new java.awt.Color(102, 204, 0));
+        btn106.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn127.setBackground(new java.awt.Color(102, 204, 0));
+        btn127.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn107.setBackground(new java.awt.Color(102, 204, 0));
+        btn107.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn128.setBackground(new java.awt.Color(102, 204, 0));
+        btn128.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         btn144.setBackground(new java.awt.Color(102, 204, 0));
+        btn144.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
         lblBandera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flag-32.png"))); // NOI18N
 
-        lblTemporizador.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
-        lblTemporizador.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTemporizador.setText("00:00:00:00");
-
+        btnReiniciar.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
         btnReiniciar.setText("Reiniciar");
         btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -755,31 +925,39 @@ public class FrmJuego extends javax.swing.JFrame {
             }
         });
 
+        tiem.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
+        jLabel1.setText("Tiempo:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTemporizador, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(145, 145, 145)
-                .addComponent(lblBandera)
+                .addComponent(btnReiniciar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReiniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(88, 88, 88))
+                .addComponent(lblBandera)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tiem, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblTemporizador)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblBandera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblBandera)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tiem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)))
+                        .addGap(0, 10, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jMenu1.setText("Juego");
@@ -1090,7 +1268,7 @@ public class FrmJuego extends javax.swing.JFrame {
                                 .addComponent(btn47, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(6, 6, 6)
                                 .addComponent(btn48, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 1, Short.MAX_VALUE)))
+                        .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1098,7 +1276,7 @@ public class FrmJuego extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn00, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btn02, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1275,7 +1453,24 @@ public class FrmJuego extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReiniciarActionPerformed
-        // TODO add your handling code here:
+        if (temporizador != null && temporizador.isRunning()) {
+            temporizador.stop();
+        }
+        tiempoTranscurrido = 0;
+        tiem.setText("0"); // Establecer "0" en lugar de "0s"
+        juegoIniciado = false;
+        descargarControles();
+        cargarMatrizBtn();
+        crearTableroBuscaminas();
+
+        // Restaurar el estado inicial de los botones y establecer el fondo en verde
+        for (int i = 0; i < matrizBtn.length; i++) {
+            for (int j = 0; j < matrizBtn[i].length; j++) {
+                matrizBtn[i][j].setEnabled(true);
+                matrizBtn[i][j].setText("");
+                matrizBtn[i][j].setBackground(new Color(102, 204, 0)); // Establecer el fondo en verde
+            }
+        }
     }//GEN-LAST:event_btnReiniciarActionPerformed
 
     /**
@@ -1460,10 +1655,11 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.JButton btn98;
     private javax.swing.JButton btn99;
     private javax.swing.JButton btnReiniciar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBandera;
-    private javax.swing.JLabel lblTemporizador;
+    private javax.swing.JButton tiem;
     // End of variables declaration//GEN-END:variables
 }
