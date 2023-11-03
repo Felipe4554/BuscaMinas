@@ -8,16 +8,18 @@
  * @author ´Felipe Chacón
  */
 public class Casilla {
+
     private int posFila;
     private int posColumna;
     private boolean mina;
     private int numMinasAlrededor;
+    private boolean abierta;
 
     public Casilla(int posFila, int posColumna) {
         this.posFila = posFila;
         this.posColumna = posColumna;
     }
-    
+
     public int getPosFila() {
         return posFila;
     }
@@ -49,8 +51,16 @@ public class Casilla {
     public void setNumMinasAlrededor(int numMinasAlrededor) {
         this.numMinasAlrededor = numMinasAlrededor;
     }
-    
-    public void incrementarNumeroMinasAlrededor(){
+
+    public void incrementarNumeroMinasAlrededor() {
         this.numMinasAlrededor++;
+    }
+
+    public boolean isAbierta() {
+        return abierta;
+    }
+
+    public void setAbierta(boolean abierta) {
+        this.abierta = abierta;
     }
 }
