@@ -3,10 +3,6 @@ package Modelo;
 import java.util.LinkedList;
 import java.util.List;
 
-/**
- *
- * @author BELSOFT
- */
 public class TableroBuscaminas {
 
     private Casilla[][] casillas;

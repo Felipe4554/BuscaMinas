@@ -15,14 +15,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
-/**
- *
- * @author ´Felipe Chacón
- */
 public class FrmJuego extends javax.swing.JFrame {
 
     private javax.swing.Timer temporizador;
@@ -37,9 +29,6 @@ public class FrmJuego extends javax.swing.JFrame {
     JButton[][] matrizBtn;
     TableroBuscaminas tableroBuscaminas;
 
-    /**
-     * Creates new form FrmJuego
-     */
     public FrmJuego() {
         initComponents();
         juegoNuevo();
@@ -1477,7 +1466,6 @@ public class FrmJuego extends javax.swing.JFrame {
 
         juegoNuevo();
 
-        // Restaurar el estado inicial de los botones y establecer el fondo en verde
         for (int i = 0; i < matrizBtn.length; i++) {
             for (int j = 0; j < matrizBtn[i].length; j++) {
                 matrizBtn[i][j].setEnabled(true);
