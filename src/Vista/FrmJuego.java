@@ -500,8 +500,6 @@ public class FrmJuego extends javax.swing.JFrame {
         tiem = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        Reiniciar = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -937,9 +935,10 @@ public class FrmJuego extends javax.swing.JFrame {
         btn144.setBackground(new java.awt.Color(102, 204, 0));
         btn144.setFont(new java.awt.Font("Century", 1, 20)); // NOI18N
 
-        lblBandera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/flag-32.png"))); // NOI18N
+        lblBandera.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/flag-32.png"))); // NOI18N
 
         btnReiniciar.setFont(new java.awt.Font("Century", 1, 18)); // NOI18N
+        btnReiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/reload_32.png"))); // NOI18N
         btnReiniciar.setText("Reiniciar");
         btnReiniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -971,7 +970,7 @@ public class FrmJuego extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblBandera)
@@ -981,14 +980,6 @@ public class FrmJuego extends javax.swing.JFrame {
                         .addGap(0, 10, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-
-        jMenu1.setText("Juego");
-
-        Reiniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/reload_32.png"))); // NOI18N
-        Reiniciar.setText("Reiniciar");
-        jMenu1.add(Reiniciar);
-
-        jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
 
@@ -1532,7 +1523,6 @@ public class FrmJuego extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Reiniciar;
     private javax.swing.JButton btn00;
     private javax.swing.JButton btn02;
     private javax.swing.JButton btn03;
@@ -1679,7 +1669,6 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.JButton btn99;
     private javax.swing.JButton btnReiniciar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblBandera;
