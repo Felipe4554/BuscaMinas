@@ -15,10 +15,10 @@ import java.util.List;
  *
  * @author ´Felipe Chacón
  */
-public class Juego {
+public class JuegoController {
     private TableroBuscaminas tablero;
 
-    public Juego(int numFilas, int numColumnas, int numMinas) {
+    public JuegoController(int numFilas, int numColumnas, int numMinas) {
         tablero = new TableroBuscaminas(numFilas, numColumnas, numMinas);
     }
 
@@ -32,6 +32,10 @@ public class Juego {
 
     public boolean partidaGanada() {
         return tablero.partidaGanada();
+    }
+    
+    public boolean partidaPerdida() {
+        return tablero.partidaPerdida();
     }
 
     public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {

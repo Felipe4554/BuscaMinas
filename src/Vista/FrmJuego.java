@@ -1,6 +1,6 @@
 package Vista;
 
-import Controlador.Juego;
+import Controlador.JuegoController;
 import Modelo.TableroBuscaminas;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -27,7 +28,7 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.Timer temporizador;
     private boolean juegoIniciado = false;
     private int tiempoTranscurrido = 0;
-    private Juego juego;
+    private JuegoController juego;
 
     int numFilas = 12;
     int numColumnas = 12;
@@ -63,7 +64,7 @@ public class FrmJuego extends javax.swing.JFrame {
         asignarBotones();
         configurarEventos();
 
-        juego = new Juego(numFilas, numColumnas, numMinas);
+        juego = new JuegoController(numFilas, numColumnas, numMinas);
 
         juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
             @Override
@@ -286,10 +287,39 @@ public class FrmJuego extends javax.swing.JFrame {
         int posFila = Integer.parseInt(coordenada[0]);
         int posColumna = Integer.parseInt(coordenada[1]);
 
+        manejarClicEnCasilla(posFila, posColumna);
+    }
+
+    private void manejarClicEnCasilla(int posFila, int posColumna) {
         juego.seleccionarCasilla(posFila, posColumna);
 
-        if (juego.partidaGanada()) {
-            // Código para cuando se gana el juego
+        if (matrizBtn[posFila][posColumna].getText().equals("*")) {
+            juegoPerdido(posFila, posColumna);
+        } else {
+            if (juego.partidaGanada()) {
+                juegoGanado();
+            }
+        }
+    }
+
+    private void juegoPerdido(int posFila, int posColumna) {
+        matrizBtn[posFila][posColumna].setText("*");
+        JOptionPane.showMessageDialog(this, "¡Has perdido la partida!", "¡Fin del juego!", JOptionPane.ERROR_MESSAGE);
+        deshabilitarBotones();
+        temporizador.stop();
+    }
+
+    private void juegoGanado() {
+        JOptionPane.showMessageDialog(this, "¡Has ganado el juego!", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
+        deshabilitarBotones();
+        temporizador.stop();
+    }
+
+    private void deshabilitarBotones() {
+        for (int i = 0; i < matrizBtn.length; i++) {
+            for (int j = 0; j < matrizBtn[i].length; j++) {
+                matrizBtn[i][j].setEnabled(false);
+            }
         }
     }
 

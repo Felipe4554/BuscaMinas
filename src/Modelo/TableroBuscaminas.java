@@ -123,6 +123,10 @@ public class TableroBuscaminas {
         return numCasillasAbiertas >= (numFilas * numColumnas) - numMinas;
     }
 
+    public boolean partidaPerdida() {
+        return juegoTerminado && casillaAbiertaListener != null && partidaPerdidaListener != null;
+    }
+
     public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {
         this.casillaAbiertaListener = listener;
     }
