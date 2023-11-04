@@ -1,5 +1,6 @@
-package Vista;
 
+
+import Vista.*;
 import Controlador.Juego;
 import Modelo.TableroBuscaminas;
 import Modelo.CasillaAbiertaListener;
@@ -1491,6 +1492,7 @@ public class FrmJuego extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmJuego.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */

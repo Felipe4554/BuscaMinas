@@ -1,5 +1,5 @@
 
-import Controlador.TableroBuscaminas;
+import Modelo.TableroBuscaminas;
 import Vista.FrmJuego;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;

@@ -1,10 +1,5 @@
-package Controlador;
+package Modelo;
 
-
-import Modelo.CasillaAbiertaListener;
-import Modelo.PartidaGanadaListener;
-import Modelo.Casilla;
-import Modelo.PartidaPerdidaListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,13 +9,12 @@ import java.util.List;
  */
 public class TableroBuscaminas {
 
-    Casilla[][] casillas;
-
-    int numFilas;
-    int numColumnas;
-    int numMinas;
-    int numCasillasAbiertas;
-    boolean juegoTerminado;
+    private Casilla[][] casillas;
+    private int numFilas;
+    private int numColumnas;
+    private int numMinas;
+    private int numCasillasAbiertas;
+    private boolean juegoTerminado;
 
     private CasillaAbiertaListener casillaAbiertaListener;
     private PartidaPerdidaListener partidaPerdidaListener;
@@ -69,50 +63,24 @@ public class TableroBuscaminas {
 
     private List<Casilla> obtenerCasillasAlrededor(int posFila, int posColumna) {
         List<Casilla> listaCasillas = new LinkedList<>();
-        for (int i = 0; i < 8; i++) {
-            int tmpPosFila = posFila;
-            int tmpPosColumna = posColumna;
-            switch (i) {
-                case 0:
-                    tmpPosFila--;
-                    break; //Arriba
-                case 1:
-                    tmpPosFila--;
-                    tmpPosColumna++;
-                    break; //Arriba Derecha
-                case 2:
-                    tmpPosColumna++;
-                    break; //Derecha
-                case 3:
-                    tmpPosColumna++;
-                    tmpPosFila++;
-                    break; //Derecha Abajo
-                case 4:
-                    tmpPosFila++;
-                    break; //Abajo
-                case 5:
-                    tmpPosFila++;
-                    tmpPosColumna--;
-                    break; //Abajo Izquierda
-                case 6:
-                    tmpPosColumna--;
-                    break; //Izquierda
-                case 7:
-                    tmpPosFila--;
-                    tmpPosColumna--;
-                    break; //Izquierda Arriba
-            }
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) {
+                    continue; // Ignorar la casilla actual
+                }
+                int tmpPosFila = posFila + i;
+                int tmpPosColumna = posColumna + j;
 
-            if (tmpPosFila >= 0 && tmpPosFila < this.casillas.length
-                    && tmpPosColumna >= 0 && tmpPosColumna < this.casillas[0].length) {
-                listaCasillas.add(this.casillas[tmpPosFila][tmpPosColumna]);
+                if (tmpPosFila >= 0 && tmpPosFila < this.casillas.length
+                        && tmpPosColumna >= 0 && tmpPosColumna < this.casillas[0].length) {
+                    listaCasillas.add(this.casillas[tmpPosFila][tmpPosColumna]);
+                }
             }
-
         }
         return listaCasillas;
     }
 
-    List<Casilla> obtenerCasillasConMinas() {
+    public List<Casilla> obtenerCasillasConMinas() {
         List<Casilla> casillasConMinas = new LinkedList<>();
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
@@ -151,7 +119,7 @@ public class TableroBuscaminas {
         }
     }
 
-    boolean partidaGanada() {
+    public boolean partidaGanada() {
         return numCasillasAbiertas >= (numFilas * numColumnas) - numMinas;
     }
 
