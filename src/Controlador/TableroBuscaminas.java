@@ -1,8 +1,12 @@
+package Controlador;
 
-import java.awt.Color;
+
+import Modelo.CasillaAbiertaListener;
+import Modelo.PartidaGanadaListener;
+import Modelo.Casilla;
+import Modelo.PartidaPerdidaListener;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  *
@@ -149,11 +153,6 @@ public class TableroBuscaminas {
 
     boolean partidaGanada() {
         return numCasillasAbiertas >= (numFilas * numColumnas) - numMinas;
-    }
-
-    public void casillaClickDerecho(int posFila, int posColumna) {
-        Casilla casilla = this.casillas[posFila][posColumna];
-        casilla.setColor(Color.RED);
     }
 
     public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {

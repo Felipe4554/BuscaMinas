@@ -1,4 +1,10 @@
 
+import Controlador.TableroBuscaminas;
+import Vista.FrmJuego;
+import Modelo.CasillaAbiertaListener;
+import Modelo.PartidaGanadaListener;
+import Modelo.Casilla;
+import Modelo.PartidaPerdidaListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

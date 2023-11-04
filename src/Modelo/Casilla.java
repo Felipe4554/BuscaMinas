@@ -1,5 +1,6 @@
+package Modelo;
 
-import java.awt.Color;
+
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -13,22 +14,13 @@ public class Casilla {
 
     private int posFila;
     private int posColumna;
-    private boolean mina;
+    private boolean tieneMina;
     private int numMinasAlrededor;
     private boolean abierta;
-    private Color color;
 
     public Casilla(int posFila, int posColumna) {
         this.posFila = posFila;
         this.posColumna = posColumna;
-    }
-
-    public Color getColor() {
-        return color;
-    }
-
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     public int getPosFila() {
@@ -48,11 +40,11 @@ public class Casilla {
     }
 
     public boolean isMina() {
-        return mina;
+        return tieneMina;
     }
 
     public void setMina(boolean mina) {
-        this.mina = mina;
+        this.tieneMina = mina;
     }
 
     public int getNumMinasAlrededor() {
