@@ -25,15 +25,22 @@ public class TableroBuscaminas {
 
     public void inicializarCasillas() {
         casillas = new Casilla[this.numFilas][this.numColumnas];
+
+        // Crear casilla vacía en la primera posición
+        casillas[0][0] = new Casilla(0, 0);
+
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
-                casillas[i][j] = new Casilla(i, j);
+                if (i != 0 || j != 0) {
+                    casillas[i][j] = new Casilla(i, j);
+                }
             }
         }
+
         generarMinas();
     }
 
-    private void generarMinas() {
+    public void generarMinas() {
         int minasGeneradas = 0;
         while (minasGeneradas != numMinas) {
             int posTmpFila = (int) (Math.random() * casillas.length);
@@ -46,7 +53,7 @@ public class TableroBuscaminas {
         actualizarNumeroMinasAlrededor();
     }
 
-    private void actualizarNumeroMinasAlrededor() {
+    public void actualizarNumeroMinasAlrededor() {
         for (int i = 0; i < casillas.length; i++) {
             for (int j = 0; j < casillas[i].length; j++) {
                 if (casillas[i][j].isMina()) {
@@ -76,6 +83,13 @@ public class TableroBuscaminas {
         return listaCasillas;
     }
 
+    public void marcarCasillaAbierta(int posFila, int posColumna) {
+        if (!this.casillas[posFila][posColumna].isAbierta()) {
+            numCasillasAbiertas++;
+            this.casillas[posFila][posColumna].setAbierta(true);
+        }
+    }
+
     public List<Casilla> obtenerCasillasConMinas() {
         List<Casilla> casillasConMinas = new LinkedList<>();
         for (int i = 0; i < casillas.length; i++) {
@@ -90,6 +104,7 @@ public class TableroBuscaminas {
 
     public void seleccionarCasilla(int posFila, int posColumna) {
         casillaAbiertaListener.casillaAbierta(this.casillas[posFila][posColumna]);
+
         if (this.casillas[posFila][posColumna].isMina()) {
             partidaPerdidaListener.partidaPerdida(obtenerCasillasConMinas());
         } else if (this.casillas[posFila][posColumna].getNumMinasAlrededor() == 0) {
@@ -103,15 +118,9 @@ public class TableroBuscaminas {
         } else {
             marcarCasillaAbierta(posFila, posColumna);
         }
+
         if (partidaGanada()) {
             partidaGanadaListener.partidaGanada(obtenerCasillasConMinas());
-        }
-    }
-
-    void marcarCasillaAbierta(int posFila, int posColumna) {
-        if (!this.casillas[posFila][posColumna].isAbierta()) {
-            numCasillasAbiertas++;
-            this.casillas[posFila][posColumna].setAbierta(true);
         }
     }
 

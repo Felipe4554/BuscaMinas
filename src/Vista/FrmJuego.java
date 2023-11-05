@@ -1,7 +1,6 @@
 package Vista;
 
 import Controlador.JuegoController;
-import Modelo.TableroBuscaminas;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
 import Modelo.Casilla;
@@ -27,7 +26,6 @@ public class FrmJuego extends javax.swing.JFrame {
     int numMinas = 30;
 
     JButton[][] matrizBtn;
-    TableroBuscaminas tableroBuscaminas;
 
     public FrmJuego() {
         initComponents();
@@ -48,39 +46,43 @@ public class FrmJuego extends javax.swing.JFrame {
     }
 
     private void juegoNuevo() {
-        descargarControles();
-        inicializarMatrizBtn();
-        asignarBotones();
-        configurarEventos();
+        try {
+            descargarControles();
+            inicializarMatrizBtn();
+            asignarBotones();
+            configurarEventos();
 
-        juego = new JuegoController(numFilas, numColumnas, numMinas);
+            juego = new JuegoController(numFilas, numColumnas, numMinas);
 
-        juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
-            @Override
-            public void partidaPerdida(List<Casilla> t) {
-                for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText("*");
+            juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
+                @Override
+                public void partidaPerdida(List<Casilla> t) {
+                    for (Casilla casillaConMina : t) {
+                        matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText("*");
+                    }
                 }
-            }
-        });
+            });
 
-        juego.setPartidaGanadaListener(new PartidaGanadaListener() {
-            @Override
-            public void partidaGanada(List<Casilla> t) {
-                for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+            juego.setPartidaGanadaListener(new PartidaGanadaListener() {
+                @Override
+                public void partidaGanada(List<Casilla> t) {
+                    for (Casilla casillaConMina : t) {
+                        matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+                    }
                 }
-            }
-        });
+            });
 
-        juego.setCasillaAbiertaListener(new CasillaAbiertaListener() {
-            @Override
-            public void casillaAbierta(Casilla t) {
-                matrizBtn[t.getPosFila()][t.getPosColumna()].setEnabled(false);
-                matrizBtn[t.getPosFila()][t.getPosColumna()]
-                        .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
-            }
-        });
+            juego.setCasillaAbiertaListener(new CasillaAbiertaListener() {
+                @Override
+                public void casillaAbierta(Casilla t) {
+                    matrizBtn[t.getPosFila()][t.getPosColumna()].setEnabled(false);
+                    matrizBtn[t.getPosFila()][t.getPosColumna()]
+                            .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
+                }
+            });
+        } catch (NullPointerException e) {
+            // Manejar el error aquí (puede imprimir un mensaje de error o realizar alguna acción)
+        }
     }
 
     private void inicializarMatrizBtn() {
@@ -280,14 +282,18 @@ public class FrmJuego extends javax.swing.JFrame {
     }
 
     private void manejarClicEnCasilla(int posFila, int posColumna) {
-        juego.seleccionarCasilla(posFila, posColumna);
+        try {
+            juego.seleccionarCasilla(posFila, posColumna);
 
-        if (matrizBtn[posFila][posColumna].getText().equals("*")) {
-            juegoPerdido(posFila, posColumna);
-        } else {
-            if (juego.partidaGanada()) {
-                juegoGanado();
+            if (matrizBtn[posFila][posColumna].getText().equals("*")) {
+                juegoPerdido(posFila, posColumna);
+            } else {
+                if (juego.partidaGanada()) {
+                    juegoGanado();
+                }
             }
+        } catch (NullPointerException e) {
+            // Manejar el error aquí (puede imprimir un mensaje de error o realizar alguna acción)
         }
     }
 
