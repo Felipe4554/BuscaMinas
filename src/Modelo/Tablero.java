@@ -3,7 +3,7 @@ package Modelo;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableroBuscaminas {
+public class Tablero {
 
     private Casilla[][] casillas;
     private int numFilas;
@@ -16,7 +16,7 @@ public class TableroBuscaminas {
     private PartidaPerdidaListener partidaPerdidaListener;
     private PartidaGanadaListener partidaGanadaListener;
 
-    public TableroBuscaminas(int numFilas, int numColumnas, int numMinas) {
+    public Tablero(int numFilas, int numColumnas, int numMinas) {
         this.numFilas = numFilas;
         this.numColumnas = numColumnas;
         this.numMinas = numMinas;

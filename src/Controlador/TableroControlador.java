@@ -4,19 +4,18 @@ import Modelo.Casilla;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
 import Modelo.PartidaPerdidaListener;
-import Modelo.TableroBuscaminas;
+import Modelo.Tablero;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class JuegoController {
+public class TableroControlador {
 
-    private TableroBuscaminas tablero;
+    private Tablero tablero;
 
-    public JuegoController(int numFilas, int numColumnas, int numMinas) {
-        tablero = new TableroBuscaminas(numFilas, numColumnas, numMinas);
+    public TableroControlador(int numFilas, int numColumnas, int numMinas) {
+        tablero = new Tablero(numFilas, numColumnas, numMinas);
     }
 
-    // Métodos relacionados con la inicialización y configuración del tablero
     public void inicializarCasillas() {
         try {
             tablero.inicializarCasillas();

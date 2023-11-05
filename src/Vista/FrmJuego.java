@@ -1,6 +1,6 @@
 package Vista;
 
-import Controlador.JuegoController;
+import Controlador.TableroControlador;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
 import Modelo.Casilla;
@@ -19,7 +19,7 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.Timer temporizador;
     private boolean juegoIniciado = false;
     private int tiempoTranscurrido = 0;
-    private JuegoController juego;
+    private TableroControlador juego;
 
     int numFilas = 12;
     int numColumnas = 12;
@@ -52,7 +52,7 @@ public class FrmJuego extends javax.swing.JFrame {
             asignarBotones();
             configurarEventos();
 
-            juego = new JuegoController(numFilas, numColumnas, numMinas);
+            juego = new TableroControlador(numFilas, numColumnas, numMinas);
 
             juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
                 @Override

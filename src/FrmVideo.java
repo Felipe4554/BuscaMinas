@@ -1,5 +1,5 @@
 
-import Modelo.TableroBuscaminas;
+import Modelo.Tablero;
 import Vista.FrmJuego;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
@@ -33,7 +33,7 @@ public class FrmVideo extends javax.swing.JFrame {
     int numMinas = 30;
 
     JButton[][] matrizBtn;
-    TableroBuscaminas tableroBuscaminas;
+    Tablero tableroBuscaminas;
 
     /**
      * Creates new form FrmJuego
@@ -64,7 +64,7 @@ public class FrmVideo extends javax.swing.JFrame {
     }
 
     private void crearTableroBuscaminas() {
-        tableroBuscaminas = new TableroBuscaminas(numFilas, numColumnas, numMinas);
+        tableroBuscaminas = new Tablero(numFilas, numColumnas, numMinas);
 
         tableroBuscaminas.setPartidaPerdidaListener(new PartidaPerdidaListener() {
             @Override
