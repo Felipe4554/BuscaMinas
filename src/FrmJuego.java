@@ -1,7 +1,7 @@
 
 
 import Vista.*;
-import Controlador.TableroControlador;
+import Controlador.JuegoControlador;
 import Modelo.Tablero;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
@@ -28,7 +28,7 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.Timer temporizador;
     private boolean juegoIniciado = false;
     private int tiempoTranscurrido = 0;
-    private TableroControlador juego;
+    private JuegoControlador juego;
 
     int numFilas = 12;
     int numColumnas = 12;
@@ -64,13 +64,13 @@ public class FrmJuego extends javax.swing.JFrame {
         asignarBotones();
         configurarEventos();
 
-        juego = new TableroControlador(numFilas, numColumnas, numMinas);
+        juego = new JuegoControlador(numFilas, numColumnas, numMinas);
 
         juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
             @Override
             public void partidaPerdida(List<Casilla> t) {
                 for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText("*");
+                    matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText("*");
                 }
             }
         });
@@ -79,7 +79,7 @@ public class FrmJuego extends javax.swing.JFrame {
             @Override
             public void partidaGanada(List<Casilla> t) {
                 for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+                    matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText(":)");
                 }
             }
         });
@@ -87,8 +87,8 @@ public class FrmJuego extends javax.swing.JFrame {
         juego.setCasillaAbiertaListener(new CasillaAbiertaListener() {
             @Override
             public void casillaAbierta(Casilla t) {
-                matrizBtn[t.getPosFila()][t.getPosColumna()].setEnabled(false);
-                matrizBtn[t.getPosFila()][t.getPosColumna()]
+                matrizBtn[t.getFila()][t.getColumna()].setEnabled(false);
+                matrizBtn[t.getFila()][t.getColumna()]
                         .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
             }
         });

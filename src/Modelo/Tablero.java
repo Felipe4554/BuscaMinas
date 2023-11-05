@@ -26,7 +26,6 @@ public class Tablero {
     public void inicializarCasillas() {
         casillas = new Casilla[this.numFilas][this.numColumnas];
 
-        // Crear casilla vacía en la primera posición
         casillas[0][0] = new Casilla(0, 0);
 
         for (int i = 0; i < casillas.length; i++) {
@@ -69,7 +68,7 @@ public class Tablero {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i == 0 && j == 0) {
-                    continue; // Ignorar la casilla actual
+                    continue;
                 }
                 int tmpPosFila = posFila + i;
                 int tmpPosColumna = posColumna + j;
@@ -112,7 +111,7 @@ public class Tablero {
             List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
             for (Casilla casilla : casillasAlrededor) {
                 if (!casilla.isAbierta()) {
-                    seleccionarCasilla(casilla.getPosFila(), casilla.getPosColumna());
+                    seleccionarCasilla(casilla.getFila(), casilla.getColumna());
                 }
             }
         } else {

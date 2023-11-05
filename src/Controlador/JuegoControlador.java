@@ -8,19 +8,23 @@ import Modelo.Tablero;
 import java.util.List;
 import javax.swing.JOptionPane;
 
-public class TableroControlador {
+public class JuegoControlador {
 
     private Tablero tablero;
 
-    public TableroControlador(int numFilas, int numColumnas, int numMinas) {
+    public JuegoControlador(int numFilas, int numColumnas, int numMinas) {
         tablero = new Tablero(numFilas, numColumnas, numMinas);
+    }
+
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(null, "Error: " + mensaje, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public void inicializarCasillas() {
         try {
             tablero.inicializarCasillas();
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Error al inicializar casillas: índice fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Índice fuera de rango al inicializar casillas");
         }
     }
 
@@ -28,7 +32,7 @@ public class TableroControlador {
         try {
             tablero.generarMinas();
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Error al generar minas: índice fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Índice fuera de rango al generar minas");
         }
     }
 
@@ -36,7 +40,7 @@ public class TableroControlador {
         try {
             tablero.actualizarNumeroMinasAlrededor();
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Error al actualizar el número de minas alrededor: índice fuera de rango", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Índice fuera de rango al actualizar el número de minas alrededor");
         }
     }
 
@@ -44,7 +48,7 @@ public class TableroControlador {
         try {
             return tablero.partidaGanada();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar si la partida está ganada", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Error al verificar si la partida está ganada");
             return false;
         }
     }
@@ -53,7 +57,7 @@ public class TableroControlador {
         try {
             return tablero.partidaPerdida();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al verificar si la partida está perdida", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Error al verificar si la partida está perdida");
             return false;
         }
     }
@@ -62,7 +66,7 @@ public class TableroControlador {
         try {
             return tablero.obtenerCasillasConMinas();
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error al obtener casillas con minas", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Error al obtener casillas con minas");
             return null;
         }
     }
@@ -71,28 +75,22 @@ public class TableroControlador {
         try {
             tablero.marcarCasillaAbierta(posFila, posColumna);
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Error: posición inválida. Por favor, selecciona una casilla válida.", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Posición inválida. Por favor, selecciona una casilla válida.");
         }
     }
 
-    // Métodos relacionados con la selección de casillas y manejo de eventos
     public void seleccionarCasilla(int posFila, int posColumna) {
         try {
             tablero.seleccionarCasilla(posFila, posColumna);
-        } catch (NullPointerException e) {
-            JOptionPane.showMessageDialog(null, "Se produjo un error. Por favor, reinicia el juego.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (ArrayIndexOutOfBoundsException e) {
-            JOptionPane.showMessageDialog(null, "Posición inválida. Por favor, selecciona una casilla válida.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (ArithmeticException e) {
-            JOptionPane.showMessageDialog(null, "Se produjo un error en el cálculo. Por favor, reinicia el juego.", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Posición inválida. Por favor, selecciona una casilla válida.");
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Entrada inválida. Por favor, introduce un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Entrada inválida. Por favor, introduce un número válido.");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Se produjo un error inesperado. Por favor, reinicia el juego.", "Error", JOptionPane.ERROR_MESSAGE);
+            mostrarError("Error inesperado. Por favor, reinicia el juego.");
         }
     }
 
-    // Listeners
     public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {
         tablero.setCasillaAbiertaListener(listener);
     }
@@ -105,3 +103,4 @@ public class TableroControlador {
         tablero.setPartidaGanadaListener(listener);
     }
 }
+

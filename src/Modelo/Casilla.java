@@ -2,31 +2,31 @@ package Modelo;
 
 public class Casilla {
 
-    private int posFila;
-    private int posColumna;
+    private int fila;
+    private int columna;
     private boolean tieneMina;
     private int numMinasAlrededor;
     private boolean abierta;
 
-    public Casilla(int posFila, int posColumna) {
-        this.posFila = posFila;
-        this.posColumna = posColumna;
+    public Casilla(int fila, int columna) {
+        this.fila = fila;
+        this.columna = columna;
     }
 
-    public int getPosFila() {
-        return posFila;
+    public int getFila() {
+        return fila;
     }
 
-    public void setPosFila(int posFila) {
-        this.posFila = posFila;
+    public void setFila(int fila) {
+        this.fila = fila;
     }
 
-    public int getPosColumna() {
-        return posColumna;
+    public int getColumna() {
+        return columna;
     }
 
-    public void setPosColumna(int posColumna) {
-        this.posColumna = posColumna;
+    public void setColumna(int columna) {
+        this.columna = columna;
     }
 
     public boolean isMina() {

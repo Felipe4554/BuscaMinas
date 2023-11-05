@@ -1,6 +1,6 @@
 package Vista;
 
-import Controlador.TableroControlador;
+import Controlador.JuegoControlador;
 import Modelo.CasillaAbiertaListener;
 import Modelo.PartidaGanadaListener;
 import Modelo.Casilla;
@@ -19,7 +19,7 @@ public class FrmJuego extends javax.swing.JFrame {
     private javax.swing.Timer temporizador;
     private boolean juegoIniciado = false;
     private int tiempoTranscurrido = 0;
-    private TableroControlador juego;
+    private JuegoControlador juego;
 
     int numFilas = 12;
     int numColumnas = 12;
@@ -33,32 +33,19 @@ public class FrmJuego extends javax.swing.JFrame {
         tiem.setText("0");
     }
 
-    void descargarControles() {
-        if (matrizBtn != null) {
-            for (int i = 0; i < matrizBtn.length; i++) {
-                for (int j = 0; j < matrizBtn[i].length; j++) {
-                    if (matrizBtn[i][j] != null) {
-                        getContentPane().remove(matrizBtn[i][j]);
-                    }
-                }
-            }
-        }
-    }
-
     private void juegoNuevo() {
         try {
-            descargarControles();
             inicializarMatrizBtn();
             asignarBotones();
             configurarEventos();
 
-            juego = new TableroControlador(numFilas, numColumnas, numMinas);
+            juego = new JuegoControlador(numFilas, numColumnas, numMinas);
 
             juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
                 @Override
                 public void partidaPerdida(List<Casilla> t) {
                     for (Casilla casillaConMina : t) {
-                        matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText("*");
+                        matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText("*");
                     }
                 }
             });
@@ -67,7 +54,7 @@ public class FrmJuego extends javax.swing.JFrame {
                 @Override
                 public void partidaGanada(List<Casilla> t) {
                     for (Casilla casillaConMina : t) {
-                        matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+                        matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText(":)");
                     }
                 }
             });
@@ -75,19 +62,17 @@ public class FrmJuego extends javax.swing.JFrame {
             juego.setCasillaAbiertaListener(new CasillaAbiertaListener() {
                 @Override
                 public void casillaAbierta(Casilla t) {
-                    matrizBtn[t.getPosFila()][t.getPosColumna()].setEnabled(false);
-                    matrizBtn[t.getPosFila()][t.getPosColumna()]
+                    matrizBtn[t.getFila()][t.getColumna()].setEnabled(false);
+                    matrizBtn[t.getFila()][t.getColumna()]
                             .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
                 }
             });
         } catch (NullPointerException e) {
-            // Manejar el error aquí (puede imprimir un mensaje de error o realizar alguna acción)
         }
     }
 
     private void inicializarMatrizBtn() {
         matrizBtn = new JButton[numFilas][numColumnas];
-        // Asigna los botones de la matriz a matrizBtn
         matrizBtn[0][0] = btn00;
         matrizBtn[0][1] = btn02;
         matrizBtn[0][2] = btn03;
@@ -293,21 +278,20 @@ public class FrmJuego extends javax.swing.JFrame {
                 }
             }
         } catch (NullPointerException e) {
-            // Manejar el error aquí (puede imprimir un mensaje de error o realizar alguna acción)
         }
     }
 
     private void juegoPerdido(int posFila, int posColumna) {
+        temporizador.stop();
         matrizBtn[posFila][posColumna].setText("*");
         JOptionPane.showMessageDialog(this, "¡Has perdido la partida!", "¡Fin del juego!", JOptionPane.ERROR_MESSAGE);
         deshabilitarBotones();
-        temporizador.stop();
     }
 
     private void juegoGanado() {
+        temporizador.stop();
         JOptionPane.showMessageDialog(this, "¡Has ganado el juego!", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
         deshabilitarBotones();
-        temporizador.stop();
     }
 
     private void deshabilitarBotones() {

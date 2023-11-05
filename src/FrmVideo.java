@@ -70,7 +70,7 @@ public class FrmVideo extends javax.swing.JFrame {
             @Override
             public void partidaPerdida(List<Casilla> t) {
                 for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText("*");
+                    matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText("*");
                 }
             }
         });
@@ -79,7 +79,7 @@ public class FrmVideo extends javax.swing.JFrame {
             @Override
             public void partidaGanada(List<Casilla> t) {
                 for (Casilla casillaConMina : t) {
-                    matrizBtn[casillaConMina.getPosFila()][casillaConMina.getPosColumna()].setText(":)");
+                    matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText(":)");
                 }
             }
         });
@@ -87,8 +87,8 @@ public class FrmVideo extends javax.swing.JFrame {
         tableroBuscaminas.setCasillaAbiertaListener(new CasillaAbiertaListener() {
             @Override
             public void casillaAbierta(Casilla t) {
-                matrizBtn[t.getPosFila()][t.getPosColumna()].setEnabled(false);
-                matrizBtn[t.getPosFila()][t.getPosColumna()]
+                matrizBtn[t.getFila()][t.getColumna()].setEnabled(false);
+                matrizBtn[t.getFila()][t.getColumna()]
                         .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
             }
         });
