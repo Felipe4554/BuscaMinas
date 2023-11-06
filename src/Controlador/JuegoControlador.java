@@ -1,19 +1,21 @@
 package Controlador;
 
 import Modelo.Casilla;
-import Modelo.CasillaAbiertaListener;
-import Modelo.PartidaGanadaListener;
-import Modelo.PartidaPerdidaListener;
 import Modelo.Tablero;
+import Modelo.TableroObserver;
 import java.util.List;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
-public class JuegoControlador {
+public class JuegoControlador implements TableroObserver {
 
     private Tablero tablero;
+    private JButton[][] matrizBtn;
 
-    public JuegoControlador(int numFilas, int numColumnas, int numMinas) {
+    public JuegoControlador(int numFilas, int numColumnas, int numMinas, JButton[][] matrizBtn) {
+        this.matrizBtn = matrizBtn;
         tablero = new Tablero(numFilas, numColumnas, numMinas);
+        tablero.registrarObservador(this);
     }
 
     private void mostrarError(String mensaje) {
@@ -79,9 +81,9 @@ public class JuegoControlador {
         }
     }
 
-    public void seleccionarCasilla(int posFila, int posColumna) {
+    public void escogerCasilla(int posFila, int posColumna) {
         try {
-            tablero.seleccionarCasilla(posFila, posColumna);
+            tablero.escogerCasilla(posFila, posColumna);
         } catch (ArrayIndexOutOfBoundsException e) {
             mostrarError("Posición inválida. Por favor, selecciona una casilla válida.");
         } catch (NumberFormatException e) {
@@ -91,16 +93,34 @@ public class JuegoControlador {
         }
     }
 
-    public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {
-        tablero.setCasillaAbiertaListener(listener);
+    @Override
+    public void casillaAbierta(Casilla casilla) {
+        int fila = casilla.getFila();
+        int columna = casilla.getColumna();
+        matrizBtn[fila][columna].setEnabled(false);
+        matrizBtn[fila][columna].setText(casilla.getNumMinasAlrededor() == 0 ? "" : String.valueOf(casilla.getNumMinasAlrededor()));
     }
 
-    public void setPartidaPerdidaListener(PartidaPerdidaListener listener) {
-        tablero.setPartidaPerdidaListener(listener);
+    @Override
+    public void partidaPerdida(List<Casilla> casillas) {
+        for (Casilla casillaConMina : casillas) {
+            int fila = casillaConMina.getFila();
+            int columna = casillaConMina.getColumna();
+            matrizBtn[fila][columna].setText("*");
+        }
     }
 
-    public void setPartidaGanadaListener(PartidaGanadaListener listener) {
-        tablero.setPartidaGanadaListener(listener);
+    @Override
+    public void partidaGanada(List<Casilla> casillas) {
+        for (Casilla casillaConMina : casillas) {
+            int fila = casillaConMina.getFila();
+            int columna = casillaConMina.getColumna();
+            matrizBtn[fila][columna].setText(":)");
+        }
+    }
+
+    @Override
+    public void actualizar(Tablero tablero) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
-

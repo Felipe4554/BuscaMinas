@@ -1,9 +1,10 @@
 package Modelo;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Tablero {
+public class Tablero implements SujetoObservable {
 
     private Casilla[][] casillas;
     private int numFilas;
@@ -12,9 +13,7 @@ public class Tablero {
     private int numCasillasAbiertas;
     private boolean juegoTerminado;
 
-    private CasillaAbiertaListener casillaAbiertaListener;
-    private PartidaPerdidaListener partidaPerdidaListener;
-    private PartidaGanadaListener partidaGanadaListener;
+    private List<TableroObserver> observadores = new ArrayList<>();
 
     public Tablero(int numFilas, int numColumnas, int numMinas) {
         this.numFilas = numFilas;
@@ -101,17 +100,17 @@ public class Tablero {
         return casillasConMinas;
     }
 
-    public void seleccionarCasilla(int posFila, int posColumna) {
-        casillaAbiertaListener.casillaAbierta(this.casillas[posFila][posColumna]);
+    public void escogerCasilla(int posFila, int posColumna) {
+        notificarCasillaAbierta(this.casillas[posFila][posColumna]);
 
         if (this.casillas[posFila][posColumna].isMina()) {
-            partidaPerdidaListener.partidaPerdida(obtenerCasillasConMinas());
+            notificarPartidaPerdida(obtenerCasillasConMinas());
         } else if (this.casillas[posFila][posColumna].getNumMinasAlrededor() == 0) {
             marcarCasillaAbierta(posFila, posColumna);
             List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
             for (Casilla casilla : casillasAlrededor) {
                 if (!casilla.isAbierta()) {
-                    seleccionarCasilla(casilla.getFila(), casilla.getColumna());
+                    escogerCasilla(casilla.getFila(), casilla.getColumna());
                 }
             }
         } else {
@@ -119,7 +118,7 @@ public class Tablero {
         }
 
         if (partidaGanada()) {
-            partidaGanadaListener.partidaGanada(obtenerCasillasConMinas());
+            notificarPartidaGanada(obtenerCasillasConMinas());
         }
     }
 
@@ -128,19 +127,42 @@ public class Tablero {
     }
 
     public boolean partidaPerdida() {
-        return juegoTerminado && casillaAbiertaListener != null && partidaPerdidaListener != null;
+        return juegoTerminado;
     }
 
-    public void setCasillaAbiertaListener(CasillaAbiertaListener listener) {
-        this.casillaAbiertaListener = listener;
+    @Override
+    public void registrarObservador(TableroObserver observador) {
+        observadores.add(observador);
     }
 
-    public void setPartidaPerdidaListener(PartidaPerdidaListener listener) {
-        this.partidaPerdidaListener = listener;
+    @Override
+    public void removerObservador(TableroObserver observador) {
+        observadores.remove(observador);
     }
 
-    public void setPartidaGanadaListener(PartidaGanadaListener listener) {
-        this.partidaGanadaListener = listener;
+    @Override
+    public void notificarObservadores() {
+        for (TableroObserver observador : observadores) {
+            observador.actualizar(this);
+        }
+    }
+
+    public void notificarCasillaAbierta(Casilla casilla) {
+        for (TableroObserver observador : observadores) {
+            observador.casillaAbierta(casilla);
+        }
+    }
+
+    public void notificarPartidaPerdida(List<Casilla> casillas) {
+        for (TableroObserver observador : observadores) {
+            observador.partidaPerdida(casillas);
+        }
+    }
+
+    public void notificarPartidaGanada(List<Casilla> casillas) {
+        for (TableroObserver observador : observadores) {
+            observador.partidaGanada(casillas);
+        }
     }
 
 }

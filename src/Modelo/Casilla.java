@@ -5,7 +5,7 @@ public class Casilla {
     private int fila;
     private int columna;
     private boolean tieneMina;
-    private int numMinasAlrededor;
+    private int minasCircundantes;
     private boolean abierta;
 
     public Casilla(int fila, int columna) {
@@ -38,15 +38,15 @@ public class Casilla {
     }
 
     public int getNumMinasAlrededor() {
-        return numMinasAlrededor;
+        return minasCircundantes;
     }
 
     public void setNumMinasAlrededor(int numMinasAlrededor) {
-        this.numMinasAlrededor = numMinasAlrededor;
+        this.minasCircundantes = numMinasAlrededor;
     }
 
     public void incrementarNumeroMinasAlrededor() {
-        this.numMinasAlrededor++;
+        this.minasCircundantes++;
     }
 
     public boolean isAbierta() {

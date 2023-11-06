@@ -1,16 +1,11 @@
 package Vista;
 
 import Controlador.JuegoControlador;
-import Modelo.CasillaAbiertaListener;
-import Modelo.PartidaGanadaListener;
-import Modelo.Casilla;
-import Modelo.PartidaPerdidaListener;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -39,35 +34,10 @@ public class FrmJuego extends javax.swing.JFrame {
             asignarBotones();
             configurarEventos();
 
-            juego = new JuegoControlador(numFilas, numColumnas, numMinas);
+            juego = new JuegoControlador(numFilas, numColumnas, numMinas, matrizBtn);
 
-            juego.setPartidaPerdidaListener(new PartidaPerdidaListener() {
-                @Override
-                public void partidaPerdida(List<Casilla> t) {
-                    for (Casilla casillaConMina : t) {
-                        matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText("*");
-                    }
-                }
-            });
-
-            juego.setPartidaGanadaListener(new PartidaGanadaListener() {
-                @Override
-                public void partidaGanada(List<Casilla> t) {
-                    for (Casilla casillaConMina : t) {
-                        matrizBtn[casillaConMina.getFila()][casillaConMina.getColumna()].setText(":)");
-                    }
-                }
-            });
-
-            juego.setCasillaAbiertaListener(new CasillaAbiertaListener() {
-                @Override
-                public void casillaAbierta(Casilla t) {
-                    matrizBtn[t.getFila()][t.getColumna()].setEnabled(false);
-                    matrizBtn[t.getFila()][t.getColumna()]
-                            .setText(t.getNumMinasAlrededor() == 0 ? "" : t.getNumMinasAlrededor() + "");
-                }
-            });
         } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(null, "Se produjo un error al iniciar el juego. Por favor, reinicia el juego.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -268,7 +238,7 @@ public class FrmJuego extends javax.swing.JFrame {
 
     private void manejarClicEnCasilla(int posFila, int posColumna) {
         try {
-            juego.seleccionarCasilla(posFila, posColumna);
+            juego.escogerCasilla(posFila, posColumna);
 
             if (matrizBtn[posFila][posColumna].getText().equals("*")) {
                 juegoPerdido(posFila, posColumna);
@@ -278,6 +248,7 @@ public class FrmJuego extends javax.swing.JFrame {
                 }
             }
         } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "Se produjo un error inesperado al manejar el clic en la casilla. Por favor, reinicia el juego.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
