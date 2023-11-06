@@ -40,23 +40,32 @@ public class Tablero implements SujetoObservable {
 
     public void generarMinas() {
         int minasGeneradas = 0;
-        while (minasGeneradas != numMinas) {
-            int posTmpFila = (int) (Math.random() * casillas.length);
-            int posTmpColumna = (int) (Math.random() * casillas[0].length);
+
+        while (minasGeneradas < numMinas) {
+            int posTmpFila = (int) (Math.random() * numFilas);
+            int posTmpColumna = (int) (Math.random() * numColumnas);
+
             if (!casillas[posTmpFila][posTmpColumna].isMina()) {
                 casillas[posTmpFila][posTmpColumna].setMina(true);
                 minasGeneradas++;
             }
         }
+
         actualizarNumeroMinasAlrededor();
     }
 
     public void actualizarNumeroMinasAlrededor() {
-        for (int i = 0; i < casillas.length; i++) {
-            for (int j = 0; j < casillas[i].length; j++) {
-                if (casillas[i][j].isMina()) {
-                    List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(i, j);
-                    casillasAlrededor.forEach((c) -> c.incrementarNumeroMinasAlrededor());
+        for (int fila = 0; fila < casillas.length; fila++) {
+            for (int columna = 0; columna < casillas[0].length; columna++) {
+                Casilla casillaActual = casillas[fila][columna];
+
+                if (casillaActual.isMina()) {
+                    List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(fila, columna);
+
+                    // Incrementar el contador de minas adyacentes en cada casilla adyacente.
+                    for (Casilla casillaAdyacente : casillasAlrededor) {
+                        casillaAdyacente.incrementarNumeroMinasAlrededor();
+                    }
                 }
             }
         }
@@ -82,9 +91,12 @@ public class Tablero implements SujetoObservable {
     }
 
     public void marcarCasillaAbierta(int posFila, int posColumna) {
+        this.casillas[posFila][posColumna].setAbierta(
+                !this.casillas[posFila][posColumna].isAbierta() ? true : false
+        );
+
         if (!this.casillas[posFila][posColumna].isAbierta()) {
             numCasillasAbiertas++;
-            this.casillas[posFila][posColumna].setAbierta(true);
         }
     }
 
@@ -101,20 +113,22 @@ public class Tablero implements SujetoObservable {
     }
 
     public void escogerCasilla(int posFila, int posColumna) {
-        notificarCasillaAbierta(this.casillas[posFila][posColumna]);
+        Casilla casilla = this.casillas[posFila][posColumna];
+        notificarCasillaAbierta(casilla);
 
-        if (this.casillas[posFila][posColumna].isMina()) {
+        if (casilla.isMina()) {
             notificarPartidaPerdida(obtenerCasillasConMinas());
-        } else if (this.casillas[posFila][posColumna].getNumMinasAlrededor() == 0) {
-            marcarCasillaAbierta(posFila, posColumna);
-            List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
-            for (Casilla casilla : casillasAlrededor) {
-                if (!casilla.isAbierta()) {
-                    escogerCasilla(casilla.getFila(), casilla.getColumna());
-                }
-            }
         } else {
             marcarCasillaAbierta(posFila, posColumna);
+
+            if (casilla.getNumMinasAlrededor() == 0) {
+                List<Casilla> casillasAlrededor = obtenerCasillasAlrededor(posFila, posColumna);
+                for (Casilla casillaAlrededor : casillasAlrededor) {
+                    if (!casillaAlrededor.isAbierta()) {
+                        escogerCasilla(casillaAlrededor.getFila(), casillaAlrededor.getColumna());
+                    }
+                }
+            }
         }
 
         if (partidaGanada()) {
@@ -123,6 +137,8 @@ public class Tablero implements SujetoObservable {
     }
 
     public boolean partidaGanada() {
+        // La partida se considera ganada si el número de casillas abiertas
+        // es igual al número total de casillas menos el número de minas.
         return numCasillasAbiertas >= (numFilas * numColumnas) - numMinas;
     }
 
