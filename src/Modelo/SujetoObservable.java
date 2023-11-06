@@ -9,7 +9,10 @@ package Modelo;
  * @author ´Felipe Chacón
  */
 public interface SujetoObservable {
+
     void registrarObservador(TableroObserver observador);
+
     void removerObservador(TableroObserver observador);
+
     void notificarObservadores();
 }

@@ -55,15 +55,6 @@ public class JuegoControlador implements TableroObserver {
         }
     }
 
-    public boolean partidaPerdida() {
-        try {
-            return tablero.partidaPerdida();
-        } catch (Exception e) {
-            mostrarError("Error al verificar si la partida está perdida");
-            return false;
-        }
-    }
-
     public List<Casilla> obtenerCasillasConMinas() {
         try {
             return tablero.obtenerCasillasConMinas();
@@ -90,6 +81,14 @@ public class JuegoControlador implements TableroObserver {
             mostrarError("Entrada inválida. Por favor, introduce un número válido.");
         } catch (Exception e) {
             mostrarError("Error inesperado. Por favor, reinicia el juego.");
+        }
+    }
+
+    public void deshabilitarBotones() {
+        for (int i = 0; i < matrizBtn.length; i++) {
+            for (int j = 0; j < matrizBtn[i].length; j++) {
+                matrizBtn[i][j].setEnabled(false);
+            }
         }
     }
 

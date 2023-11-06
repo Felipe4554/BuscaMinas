@@ -256,21 +256,13 @@ public class FrmJuego extends javax.swing.JFrame {
         temporizador.stop();
         matrizBtn[posFila][posColumna].setText("*");
         JOptionPane.showMessageDialog(this, "¡Has perdido la partida!", "¡Fin del juego!", JOptionPane.ERROR_MESSAGE);
-        deshabilitarBotones();
+        juego.deshabilitarBotones();
     }
 
     private void juegoGanado() {
         temporizador.stop();
         JOptionPane.showMessageDialog(this, "¡Has ganado el juego!", "¡Felicidades!", JOptionPane.INFORMATION_MESSAGE);
-        deshabilitarBotones();
-    }
-
-    private void deshabilitarBotones() {
-        for (int i = 0; i < matrizBtn.length; i++) {
-            for (int j = 0; j < matrizBtn[i].length; j++) {
-                matrizBtn[i][j].setEnabled(false);
-            }
-        }
+        juego.deshabilitarBotones();
     }
 
     private void iniciarTemporizador() {

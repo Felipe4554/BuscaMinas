@@ -11,7 +11,6 @@ public class Tablero implements SujetoObservable {
     private int numColumnas;
     private int numMinas;
     private int numCasillasAbiertas;
-    private boolean juegoTerminado;
 
     private List<TableroObserver> observadores = new ArrayList<>();
 
@@ -137,13 +136,7 @@ public class Tablero implements SujetoObservable {
     }
 
     public boolean partidaGanada() {
-        // La partida se considera ganada si el número de casillas abiertas
-        // es igual al número total de casillas menos el número de minas.
         return numCasillasAbiertas >= (numFilas * numColumnas) - numMinas;
-    }
-
-    public boolean partidaPerdida() {
-        return juegoTerminado;
     }
 
     @Override
